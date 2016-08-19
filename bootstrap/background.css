@@ -1,0 +1,7 @@
+body {
+	background-image: url('image/bg.jpg');
+	background-size: cover;
+}
+input[type="text"] {
+	width: 600px;
+}
