@@ -3,13 +3,13 @@
 		switch(checkconnection())
 		{
 			case 'false': 
-					alert('You need to connect to the internet!');
+			alert('You need to connect to the internet!');
 			break;
 			
 			case 'LoginProcess':
-					LoginProcess();
+			LoginProcess();
 			break;
-		default:
+			default:
 		}
 	}
 	function checkconnection()
@@ -66,68 +66,68 @@
 	function inputusername(fa) {
 		var LoginUsername = document.getElementById('LoginUsername').value;
 		fa.executeSql('DROP TABLE IF EXISTS User');
-        	fa.executeSql('CREATE TABLE IF NOT EXISTS User (name TEXT)');
+		fa.executeSql('CREATE TABLE IF NOT EXISTS User (name TEXT)');
 		fa.executeSql("INSERT INTO User (name) VALUES (?)",[LoginUsername]);
-    }
-$(document).ready(function(){
-	var rooms = document.getElementById('rooms');
-	var serve = document.getElementById('serve');
-	var my_reservations = document.getElementById('my_reservations');
-	if(rooms){
-		displayrooms();
 	}
-	else if(serve)
-	{
-		displayprice();
-	}
-	else if(my_reservations)
-	{
-		reservations();
-	}
-});
+	$(document).ready(function(){
+		var rooms = document.getElementById('rooms');
+		var serve = document.getElementById('serve');
+		var my_reservations = document.getElementById('my_reservations');
+		if(rooms){
+			displayrooms();
+		}
+		else if(serve)
+		{
+			displayprice();
+		}
+		else if(my_reservations)
+		{
+			reservations();
+		}
+	});
 	function displayrooms()
 	{
-        xml = new XMLHttpRequest();
-        xml.onreadystatechange = function() 
+		xml = new XMLHttpRequest();
+		xml.onreadystatechange = function() 
 		{
-            if (xml.readyState == 4 && xml.status == 200) 
+			if (xml.readyState == 4 && xml.status == 200) 
 			{
 				document.getElementById('display').innerHTML = '';
 				var AnotherArray = JSON.parse(xml.responseText);
 				for(var i = 0; i< AnotherArray.length; i++)
 				{						
 					var values = '<div class = "col-sm-12">'+
-							'<h4>Room number: '+AnotherArray[i].Room_Number+'</h4>'+
-							'<h5>Price: &#8369;' +AnotherArray[i].Price +'</h5>'
-							+'<a href="roomreserve.html?id='+AnotherArray[i].Room_Number+'&price='+AnotherArray[i].Price+'" class = "btn btn-primary">Reserve</a><Br><br>'
-							+'<img src="data:image/jpg;base64, '+AnotherArray[i].Room_Image+'" class = "img-responsive img-thumbnail" style = "margin-bottom: 10px;"/>'+
-							'<hr></div>';
+					'<h4>Room number: '+AnotherArray[i].Room_Number+'</h4>'+
+					'<h5>Price: &#8369;' +AnotherArray[i].Price +'</h5>'
+					+'<a href="roomreserve.html?id='+AnotherArray[i].Room_Number+'&price='+AnotherArray[i].Price+'" class = "btn btn-primary">Reserve</a><Br><br>'
+					+'<img src="data:image/jpg;base64, '+AnotherArray[i].Room_Image+'" class = "img-responsive img-thumbnail" style = "margin-bottom: 10px;"/>'+
+					'<hr></div>';
 					$('#display').append(values).hide().fadeIn('slow');		
 				}
-            }
-        }
+			}
+		}
 		xml.open("GET","http://www.smceventmonitoring.eu.pn/Sportsbucks/rooms.php",true);
 		xml.send();
 	}
 	function displayprice()
 	{
 		var search = function getQueryVariable(variable)
+		{
+			var query = window.location.search.substring(1);
+			var vars = query.split("&");
+			for (var i=0;i<vars.length;i++) 
 			{
-			       var query = window.location.search.substring(1);
-			       var vars = query.split("&");
-			       for (var i=0;i<vars.length;i++) 
-			       {
-		               var pair = vars[i].split("=");
-		               if(pair[0] == variable){return pair[1];}
-			       }
-			       return(false);
+				var pair = vars[i].split("=");
+				if(pair[0] == variable){return pair[1];}
 			}
+			return(false);
+		}
 		var id = search('id');
 		var price = search('price')
 		$('#room').append('<div class="input-group"><span class="input-group-addon">'+
-                '<i class="fa fa-bed"></i></span>'+
-                '<input type="text" class="form-control" id="roomnumber" readonly value = "'+id+'">'+
-        		 '</div>');
+			'<i class="fa fa-bed"></i></span>'+
+			'<input type="text" class="form-control" id="roomnumber" readonly value = "'+id+'">'+
+			'</div>');
 		$('#price').append('<div class = "input-group"><span class = "input-group-addon">'+
 			'<i class = "fa">&#8369;</i></span>'+
 			'<input type="text" class="form-control" id="roomprice" readonly value = "'+price+'">'+
@@ -176,19 +176,19 @@ $(document).ready(function(){
 	function panction(tx) {
 		var username = document.getElementById('username').value;
 		tx.executeSql('DROP TABLE IF EXISTS User');
-        	tx.executeSql('CREATE TABLE IF NOT EXISTS User (name TEXT)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS User (name TEXT)');
 		tx.executeSql("INSERT INTO User (name) VALUES (?)",[username]);
-    }
+	}
 	function errorCB(err) {
 		alert('There is an error!: '+err.message+ '\nSecond Message:!' +err);
-    }
+	}
 	function insidereservation() {
-        var yt = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-        yt.transaction(inside2, errorCB);
-    }
+		var yt = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+		yt.transaction(inside2, errorCB);
+	}
 	function inside2(tx) {
-        tx.executeSql('SELECT * FROM User', [], inside3, errorCB);
-    }
+		tx.executeSql('SELECT * FROM User', [], inside3, errorCB);
+	}
 	function inside3(tx, results) 
 	{
 		var User = results.rows.item(0).name;
@@ -214,12 +214,12 @@ $(document).ready(function(){
 		xml.send(params);	
 	}
 	function reservations() {
-        var yt = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-        yt.transaction(reservations2, errorCB);
-    }
+		var yt = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+		yt.transaction(reservations2, errorCB);
+	}
 	function reservations2(tx) {
-        tx.executeSql('SELECT * FROM User', [], reservations3, errorCB);
-    }
+		tx.executeSql('SELECT * FROM User', [], reservations3, errorCB);
+	}
 	function reservations3(tx, results) 
 	{
 		var User = results.rows.item(0).name;
@@ -232,9 +232,9 @@ $(document).ready(function(){
 				for(var i = 0; i< arrayss.length; i++)
 				{						
 					var values = '<tr><td>'+arrayss[i].Room_Number+'</td>'+
-							   '<td>'+arrayss[i].Time_Reserved+'</td>'+
-							   '<td>'+arrayss[i].Date_Reserved+'</td>'+
-							   '<td>'+arrayss[i].Payment+'</td></tr>';
+					'<td>'+arrayss[i].Time_Reserved+'</td>'+
+					'<td>'+arrayss[i].Date_Reserved+'</td>'+
+					'<td>'+arrayss[i].Payment+'</td></tr>';
 					$('#data').append(values).hide().fadeIn('slow');		
 				}
 			}
@@ -246,12 +246,12 @@ $(document).ready(function(){
 		xml.send(params);	
 	}
 	function studentinfo() {
-        var yt = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-        yt.transaction(successCB, errorCB);
-    }
+		var yt = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+		yt.transaction(successCB, errorCB);
+	}
 	function successCB(tx) {
-        tx.executeSql('SELECT * FROM User', [], successCB2, errorCB);
-    }
+		tx.executeSql('SELECT * FROM User', [], successCB2, errorCB);
+	}
 	function successCB2(tx, results) 
 	{
 		var User = results.rows.item(0).name;
